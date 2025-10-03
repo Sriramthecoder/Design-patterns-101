@@ -1,0 +1,65 @@
+@startuml Class Diagram for Abstract Factory
+ 
+' Abstract Products
+interface AppBarWidget {
+  +display()
+}
+
+interface ButtonWidget {
+  +display()
+}
+
+' Concrete Products - Material
+class MaterialAppBarWidget implements AppBarWidget {
+  +display()
+}
+
+class MaterialButtonWidget implements ButtonWidget {
+  +display()
+}
+
+' Concrete Products - Cupertino
+class CupertinoAppBarWidget implements AppBarWidget {
+  +display()
+}
+
+class CupertinoButtonWidget implements ButtonWidget {
+  +display()
+}
+
+' Abstract Factory
+interface WidgetFactory {
+  +createAppBar() : AppBarWidget
+  +createButton() : ButtonWidget
+}
+
+' Concrete Factories
+class MaterialWidgetFactory implements WidgetFactory {
+  +createAppBar() : AppBarWidget
+  +createButton() : ButtonWidget
+}
+
+class CupertinoWidgetFactory implements WidgetFactory {
+  +createAppBar() : AppBarWidget
+  +createButton() : ButtonWidget
+}
+
+' Client
+class App {
+  - WidgetFactory factory
+  + App(factory: WidgetFactory)
+  + build()
+}
+
+' Relationships
+WidgetFactory <|.. MaterialWidgetFactory
+WidgetFactory <.. CupertinoWidgetFactory
+
+AppBarWidget <.. MaterialAppBarWidget
+ButtonWidget <|.. MaterialButtonWidget
+
+AppBarWidget <|.. CupertinoAppBarWidget
+ButtonWidget <|.. CupertinoButtonWidget
+
+App --> WidgetFactory
+@enduml
